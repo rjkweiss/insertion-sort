@@ -18,7 +18,43 @@ function insertionSort(arr) {
   Return the sorted array
   */
 
+  /// [3, 2, 0, 4, 1]
+  // sorted: []
+
+  // popped: 1
+  // sorted: [null]
+  // traverse sorted
+
   // Your code here
+  let newArr = [...arr];
+
+  // to store sorted items
+  let sorted = [];
+
+  while (newArr.length > 0) {
+    console.log(sorted.join(','));
+
+    // pop from input array
+    let unsorted = newArr.pop();
+
+    // increase sorted array length, so we can shift effectively
+    sorted[sorted.length] = null;
+
+    // go through sorted array
+    for (let i = sorted.length - 1; i >= 0; i--) {
+      // check if we have an insertion point, or if we are inserting to
+      // sorted array for the first time (i - 1 < 0)
+      if (i === 0 || sorted[i - 1] < unsorted) {
+        sorted[i] = unsorted;
+        break;
+      }
+      // otherwise shift to the right by 1
+      sorted[i] = sorted[i - 1];
+    }
+  }
+
+  // return sorted array
+  return sorted;
 }
 
 // In-place Insertion Sort
@@ -41,6 +77,27 @@ function insertionSortInPlace(arr) {
   */
 
   // Your code here
+  let divider = 1;
+  while (divider < arr.length) {
+    // print intermediate steps:
+    console.log(arr.join(','));
+
+    // grab first item in unsorted half
+    let unsorted = arr[divider];
+
+    // go through array from divider to 0 and find
+    // appropriate place to insert current unsorted
+    for (let i = divider; i >= 0; i--) {
+      if (i === 0 || arr[i - 1] < unsorted) {
+        arr[i] = unsorted;
+        divider += 1;
+        break;
+      } else {
+        // otherwise, shift to the right by 1
+        arr[i] = arr[i - 1];
+      }
+    }
+  }
 }
 
 module.exports = [insertionSort, insertionSortInPlace];
